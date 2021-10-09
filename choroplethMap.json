@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 400,
+  "title": "Population Density in Asia",
+  "projection": {"type": "equalEarth"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/J1008sianG/FIT3179Homework/main/custom.geo%20(2).json",
+    "format": {"type": "topojson", "feature": "custom.geo"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.name",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/J1008sianG/FIT3179Homework/c4dc11a48076ed00d0b50314473d25043386ad51/PopulationOfAsia.csv"
+        },
+        "key": "Country (or dependency)",
+        "fields": ["Density"]
+      }
+    }
+  ],
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {"field": "Density", "type": "quantitative"},
+    "tooltip": [
+      {"field": "properties.name", "type": "nominal", "title": "Country"},
+      {"field": "Density", "type": "quantitative"}
+    ]
+  },
+  "config": {}
+}
